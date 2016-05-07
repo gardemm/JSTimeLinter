@@ -4,9 +4,18 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import browserSync from 'browser-sync';
 import del from 'del';
 import {stream as wiredep} from 'wiredep';
+import coffee from 'gulp-coffee';
+import gutil from 'gulp-util';
+
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
+
+gulp.task('coffee', () => {
+  return gulp.src('app/scripts/**/*.coffee')
+    .pipe(coffee({bare: true}).on('error', gutil.log))
+    .pipe(gulp.dest('.tmp/scripts'));
+});
 
 gulp.task('styles', () => {
   return gulp.src('app/styles/*.scss')
@@ -90,7 +99,7 @@ gulp.task('extras', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('serve', ['styles', 'scripts', 'fonts'], () => {
+gulp.task('serve', ['styles', 'scripts', 'coffee', 'fonts'], () => {
   browserSync({
     notify: false,
     port: 9000,
@@ -159,7 +168,7 @@ gulp.task('wiredep', () => {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['coffee', 'lint', 'html', 'images', 'fonts', 'extras'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
