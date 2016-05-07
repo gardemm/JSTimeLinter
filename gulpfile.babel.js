@@ -17,6 +17,12 @@ gulp.task('coffee', () => {
     .pipe(gulp.dest('.tmp/scripts'));
 });
 
+gulp.task('coffee:test', () => {
+  return gulp.src('test/spec/**/*.coffee')
+    .pipe(coffee({bare: true}).on('error', gutil.log))
+    .pipe(gulp.dest('test/spec'));
+});
+
 gulp.task('styles', () => {
   return gulp.src('app/styles/*.scss')
     .pipe($.plumber())
@@ -123,7 +129,7 @@ gulp.task('serve', ['styles', 'scripts', 'coffee', 'fonts'], () => {
   gulp.watch('bower.json', ['wiredep', 'fonts']);
 });
 
-gulp.task('serve:dist', () => {
+gulp.task('serve:dist', ['build'], () => {
   browserSync({
     notify: false,
     port: 9000,
@@ -133,7 +139,7 @@ gulp.task('serve:dist', () => {
   });
 });
 
-gulp.task('serve:test', ['scripts'], () => {
+gulp.task('serve:test', ['scripts', 'coffee:test'], () => {
   browserSync({
     notify: false,
     port: 9000,
@@ -141,7 +147,7 @@ gulp.task('serve:test', ['scripts'], () => {
     server: {
       baseDir: 'test',
       routes: {
-        '/scripts': '.tmp/scripts',
+        '/scripts': 'app/scripts',
         '/bower_components': 'bower_components'
       }
     }

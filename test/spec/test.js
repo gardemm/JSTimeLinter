@@ -1,11 +1,18 @@
-(function () {
-  'use strict';
-
-  describe('Give it some context', function () {
-    describe('maybe a bit more context here', function () {
-      it('should run here few assertions', function () {
-
-      });
+'use strict';
+function check( done, f ) {
+    try {
+        f();
+        done();
+    } catch(e) {
+        done(e);
+    }
+};
+describe('Class JSTimeLinter', function() {
+  describe('Инициализация', function() {
+    var tlint;
+    tlint = new JSTimeLinter();
+    it('tlin является экземпляром класса JSTimeLinter', function() {
+      assert.instanceOf(tlint, JSTimeLinter, 'Да');
     });
   });
-})();
+});
