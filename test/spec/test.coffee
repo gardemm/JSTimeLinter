@@ -2,7 +2,7 @@
 
 # addition block
 
-`function check( done, f ) {
+`function check(done, f) {
     try {
         f();
         done();
@@ -15,15 +15,46 @@
 
 describe 'Class JSTimeLinter', () ->
 	describe 'Инициализация', () ->
-		tlint = new JSTimeLinter()
+		t = new JSTimeLinter()
 
-		it 'tlin является экземпляром класса JSTimeLinter', () ->
-			assert.instanceOf tlint, JSTimeLinter, 'Да'
-			return
-		return
-	return
+		it 't является экземпляром класса JSTimeLinter', () ->
+			assert.instanceOf t, JSTimeLinter
 
+		describe 'У класса есть методы:', () ->
+			it 'run()', () ->
+				assert.isFunction t.run
 
+			it 'pause()', () ->
+				assert.isFunction t.pause
+
+			it 'stop()', () ->
+				assert.isFunction t.stop
+
+			it 'reset()', () ->
+				assert.isFunction t.reset
+
+			it 'getJs()', () ->
+				assert.isFunction t.getJs
+
+			it 'spanCode()', () ->
+				assert.isFunction t.spanCode
+
+		describe 'Есть параметры', () ->
+			it 'code = string - исследуемый код', () ->
+				assert.typeOf t.code, 'string'
+
+			it 'col = string - текущий цвет', () ->
+				assert.typeOf t.col, 'string'
+
+			it 'cols = array - массив всех доступных стандартных цветов', () ->
+				assert.typeOf t.cols, 'array'
+
+			it 'step = number - длительность итерации в секундах', () ->
+				assert.typeOf t.step, 'number'
+
+		describe 'Есть метки', () ->
+			it 'spanned_code - заключена ли в span каждая часть кода', () ->
+				assert.property t, 'spanned_code'
 
 
 #   describe('Класс JSTimeLinter', function () {

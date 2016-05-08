@@ -4,8 +4,11 @@ var JSTimeLinter;
 
 JSTimeLinter = (function() {
   function JSTimeLinter() {
-    this.col = ['yellow', 'green', 'red', 'blue'];
+    this.col = "";
     this.step = 1;
+    this.code = "";
+    this.cols = ['yellow', 'green', 'red', 'blue'];
+    this.spanned_code = false;
   }
 
   JSTimeLinter.prototype.run = function() {};

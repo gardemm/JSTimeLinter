@@ -2,14 +2,18 @@
 
 class JSTimeLinter
 	constructor: ->
-		@col = [ 
+		@col = ""
+		@step = 1
+		@code = ""
+		
+		@cols = [ 
 	      'yellow' 
 	      'green' 
 	      'red'
 	      'blue'
 	    ]
-
-		@step = 1
+		
+		@spanned_code = false
 
 	run: ->
 
